@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Do you want to go out with me? 🐶</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: #d9c3ec;
+    font-family: Georgia, "Times New Roman", serif;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    user-select: none; -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 100vh; min-height: 100dvh;
+  }
+  .screen { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 22px; padding: 20px; width: 100%; max-width: 640px; }
+  .hidden { display: none !important; }
+  h1 {
+    color: #fff; font-size: clamp(22px, 4vw, 36px); font-weight: bold;
+    text-shadow: 0 1px 0 rgba(160,120,190,.35);
+  }
+  .dog { width: 180px; height: 180px; }
+  .bob { animation: bob 1.6s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
+  .tail { transform-origin: 150px 186px; animation: wag .35s ease-in-out infinite alternate; }
+  @keyframes wag { from { transform: rotate(-14deg) } to { transform: rotate(14deg) } }
+  .heart-float { animation: pulse 1s ease-in-out infinite; transform-origin: 170px 95px; }
+  @keyframes pulse { 0%,100% { transform: scale(1) } 50% { transform: scale(1.2) } }
+
+  .buttons { display: flex; gap: 18px; align-items: center; min-height: 50px; }
+  button {
+    font-family: inherit; font-size: 17px; color: #fff; border: none; cursor: pointer;
+    padding: 12px 30px; min-height: 48px; min-width: 88px; border-radius: 10px;
+    transition: transform .15s, background .2s; touch-action: manipulation; white-space: nowrap;
+  }
+  #yes { background: #f27b98; box-shadow: 0 3px 0 #d55b7a; }
+  #yes:hover { background: #f58aa4; }
+  #yes.full { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh;
+    border-radius: 0; box-shadow: none; transform: none !important; font-size: 22vmin; z-index: 1;
+    display: flex; align-items: center; justify-content: center; }
+  #yes.full #yesText { transform: none !important; }
+  #yesText { display: inline-block; transition: transform .3s cubic-bezier(.2,1.4,.4,1); }
+  #yes { position: relative; z-index: 1; transition: transform .3s cubic-bezier(.2,1.4,.4,1), background .2s; }
+  #no  { background: #b9a3cc; box-shadow: 0 3px 0 #9a83ae; }
+  #no.running { position: fixed; transition: left .25s ease, top .25s ease; z-index: 5; }
+
+  .sub { color: #fff; font-size: 16px; }
+  @media (max-width: 500px) {
+    h1 { font-size: 26px; line-height: 1.25; padding: 0 8px; }
+    .dog { width: 150px; height: 150px; }
+    button { font-size: 18px; }
+    .buttons { gap: 14px; }
+  }
+  .hearts span {
+    position: fixed; bottom: -40px; font-size: 24px; color: #f27b98;
+    animation: rise linear forwards; pointer-events: none;
+  }
+  @keyframes rise { to { transform: translateY(-115vh) rotate(25deg); opacity: 0; } }
+  .pop { animation: pop .5s cubic-bezier(.2,1.6,.4,1); }
+  @keyframes pop { from { transform: scale(.4); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <radialGradient id="fur" cx="45%" cy="35%" r="70%"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eaeef6"/></radialGradient>
+  <linearGradient id="ear" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ecc69c"/><stop offset="1" stop-color="#d7a473"/></linearGradient>
+  <radialGradient id="iris" cx="50%" cy="70%" r="65%"><stop offset="0" stop-color="#6b4a3a"/><stop offset=".55" stop-color="#3a2a26"/><stop offset="1" stop-color="#1f1820"/></radialGradient>
+</defs></svg>
+
+<!-- Question screen -->
+<div class="screen" id="ask">
+  <h1>Do you want to go out with me?</h1>
+
+  <svg class="dog bob" viewBox="0 0 200 200" aria-label="dog face">
+    <path d="M48 62 q-30 -6 -36 34 q-4 30 16 44 q14 8 22 -10 q10 -26 10 -50 z" fill="#8a5530"/>
+    <path d="M152 62 q30 -6 36 34 q4 30 -16 44 q-14 8 -22 -10 q-10 -26 -10 -50 z" fill="#8a5530"/>
+    <ellipse cx="100" cy="106" rx="66" ry="62" fill="#e3a868"/>
+    <ellipse cx="100" cy="108" rx="66" ry="60" fill="#e9b47a"/>
+    <path d="M100 50 q-10 0 -12 26 q0 14 12 20 q12 -6 12 -20 q-2 -26 -12 -26 z" fill="#fbf1e2"/>
+    <ellipse cx="100" cy="138" rx="40" ry="28" fill="#fbf1e2"/><circle cx="72" cy="100" r="9" fill="#2a1d16"/>
+    <circle cx="128" cy="100" r="9" fill="#2a1d16"/>
+    <circle cx="75" cy="97" r="2.5" fill="#fff"/>
+    <circle cx="131" cy="97" r="2.5" fill="#fff"/>
+    <ellipse cx="100" cy="124" rx="13" ry="9" fill="#2a1d16"/>
+    <path d="M100 132 v8 M86 142 q14 10 28 0" stroke="#2a1d16" stroke-width="4" fill="none" stroke-linecap="round"/>
+  </svg>
+
+  <div class="buttons">
+    <button id="yes"><span id="yesText">Yes</span></button>
+    <button id="no">No</button>
+  </div>
+</div>
+
+<!-- Yes screen -->
+<div class="screen hidden" id="yay">
+  <h1 class="pop">Yippie!!!</h1>
+
+  <svg class="dog pop" viewBox="0 0 200 200" aria-label="happy dog face">
+    <g class="bob"><path d="M48 62 q-30 -6 -36 34 q-4 30 16 44 q14 8 22 -10 q10 -26 10 -50 z" fill="#8a5530"/>
+    <path d="M152 62 q30 -6 36 34 q4 30 -16 44 q-14 8 -22 -10 q-10 -26 -10 -50 z" fill="#8a5530"/>
+    <ellipse cx="100" cy="106" rx="66" ry="62" fill="#e3a868"/>
+    <ellipse cx="100" cy="108" rx="66" ry="60" fill="#e9b47a"/>
+    <path d="M100 50 q-10 0 -12 26 q0 14 12 20 q12 -6 12 -20 q-2 -26 -12 -26 z" fill="#fbf1e2"/>
+    <ellipse cx="100" cy="138" rx="40" ry="28" fill="#fbf1e2"/><path d="M62 102 q10 -12 20 0" stroke="#2a1d16" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M118 102 q10 -12 20 0" stroke="#2a1d16" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <ellipse cx="100" cy="124" rx="13" ry="9" fill="#2a1d16"/>
+    <path d="M78 140 q22 30 44 0 z" fill="#5a2a22"/>
+    <path d="M90 148 q10 22 20 0 q-10 -4 -20 0 z" fill="#ef6f7f"/></g>
+  </svg>
+
+  <p class="sub">See you soon! :)</p>
+</div>
+
+<div class="hearts" id="hearts"></div>
+
+<script>
+  const no = document.getElementById('no');
+  const yes = document.getElementById('yes');
+  const noTexts = ["No", "Are you sure?", "Really sure?", "The puppy is crying 😢", "Pleaseee", "The puppy is sad 🥺", "Last chance!", "Nope, try Yes"];
+  let i = 0;
+  let yesScale = 1;
+
+  function overlapsYes(x, y) {
+    const full = yes.classList.contains('full');
+    const yr = (full ? document.getElementById('yesText') : yes).getBoundingClientRect();
+    const grow = full ? 16 : yes.offsetWidth * 0.2 + 16; // room for the next size-up
+    return x < yr.right + grow && x + no.offsetWidth > yr.left - grow &&
+           y < yr.bottom + grow && y + no.offsetHeight > yr.top - grow;
+  }
+  function runAway() {
+    const r = no.getBoundingClientRect();
+    if (!no.classList.contains('running')) {
+      no.style.left = r.left + 'px'; no.style.top = r.top + 'px';
+      no.classList.add('running');
+    }
+    i = (i + 1) % noTexts.length;
+    no.textContent = noTexts[i];
+    const pad = 20;
+    no.style.maxWidth = (window.innerWidth - 2 * pad) + 'px';
+    const maxX = window.innerWidth - no.offsetWidth - pad;
+    const maxY = window.innerHeight - no.offsetHeight - pad;
+    let x, y, tries = 0;
+    do {
+      x = pad + Math.random() * (maxX - pad);
+      y = pad + Math.random() * (maxY - pad);
+      tries++;
+    } while ((Math.hypot(x - r.left, y - r.top) < Math.min(150, window.innerWidth / 3) || overlapsYes(x, y)) && tries < 60);
+    no.style.left = x + 'px'; no.style.top = y + 'px';
+    if (yes.classList.contains('full')) return;
+    // keeps growing every click until it covers the entire screen
+    const cx = yes.offsetLeft + yes.offsetWidth / 2, cy = yes.offsetTop + yes.offsetHeight / 2;
+    const fill = 2.1 * Math.max(
+      Math.max(cx, window.innerWidth - cx) / (yes.offsetWidth / 2),
+      Math.max(cy, window.innerHeight - cy) / (yes.offsetHeight / 2));
+    yesScale = Math.min(yesScale * 1.25, fill);
+    if (yesScale >= fill) {
+      // it has grown past the edges: lock it in as a full-screen Yes button
+      setTimeout(() => yes.classList.add('full'), 300);
+      return;
+    }
+    yes.style.transform = `scale(${yesScale})`;
+    // keep the word readable: text tops out at ~40% of the screen while the button keeps growing
+    const t = document.getElementById('yesText');
+    const textCap = Math.max(1, Math.min(window.innerWidth, window.innerHeight) * 0.4 / t.offsetWidth);
+    t.style.transform = `scale(${Math.min(yesScale, textCap) / yesScale})`;
+  }
+  no.addEventListener('click', e => { e.preventDefault(); runAway(); });
+
+  window.addEventListener('resize', () => {
+    if (!no.classList.contains('running')) return;
+    const x = Math.min(parseFloat(no.style.left), window.innerWidth - no.offsetWidth - 20);
+    const y = Math.min(parseFloat(no.style.top), window.innerHeight - no.offsetHeight - 20);
+    no.style.left = Math.max(20, x) + 'px'; no.style.top = Math.max(20, y) + 'px';
+  });
+
+  yes.addEventListener('click', () => {
+    document.getElementById('ask').classList.add('hidden');
+    no.classList.add('hidden');
+    document.getElementById('yay').classList.remove('hidden');
+    const box = document.getElementById('hearts');
+    for (let k = 0; k < 40; k++) {
+      const h = document.createElement('span');
+      h.textContent = '☺️';
+      h.style.left = Math.random() * 100 + 'vw';
+      h.style.fontSize = 20 + Math.random() * 22 + 'px';
+      h.style.animationDuration = 3 + Math.random() * 3 + 's';
+      h.style.animationDelay = Math.random() * 2 + 's';
+      box.appendChild(h);
+    }
+  });
+</script>
+</body>
+</html>
